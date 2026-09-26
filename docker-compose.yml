@@ -1,9 +1,11 @@
 services:
   web:
+    # La API y el frontend se ejecutan en un único servicio durante esta etapa.
     build: .
     ports:
       - "3000:8000"
     volumes:
+      # El volumen conserva jugadores y partidas al recrear el contenedor.
       - farkle-data:/data
     restart: unless-stopped
 

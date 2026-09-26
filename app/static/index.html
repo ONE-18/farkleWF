@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
+    <!-- El shell contiene las vistas de identidad, lobby y sala; JavaScript alterna su visibilidad. -->
     <main class="shell">
       <section class="intro" aria-labelledby="page-title">
         <div class="brand"><span class="brand-mark">●</span> FARKLE WORLD</div>
@@ -20,7 +21,8 @@
         <div class="dice-row" aria-hidden="true"><span>⚄</span><span>⚂</span><span>⚅</span></div>
       </section>
 
-      <section class="panel" aria-labelledby="form-title">
+      <!-- Registro local del jugador antes de acceder a cualquier partida. -->
+      <section class="panel" id="identity-view" aria-labelledby="form-title">
         <div class="panel-heading">
           <span class="step">01</span>
           <div><p class="eyebrow">Antes de empezar</p><h2 id="form-title">¿Cómo te llamamos?</h2></div>
@@ -33,6 +35,43 @@
           <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
         </form>
         <p class="privacy-note"><span aria-hidden="true">⌁</span> Tu identidad queda guardada en este navegador para reconocerte en futuras visitas.</p>
+      </section>
+
+      <!-- El lobby permite crear una sala o unirse mediante su código. -->
+      <section class="panel workspace" id="lobby-view" hidden aria-labelledby="lobby-title">
+        <div class="workspace-topline">
+          <div><p class="eyebrow">Lobby</p><h2 id="lobby-title">Elige tu próxima mesa</h2></div>
+          <span class="player-chip" id="player-chip"></span>
+        </div>
+        <div class="lobby-actions">
+          <form id="create-game-form" class="action-block">
+            <span class="step">01</span>
+            <div><h3>Crear una partida</h3><p>Comparte el código y deja que tus amigos se unan.</p></div>
+            <button type="submit"><span>Crear mesa</span><span aria-hidden="true">↗</span></button>
+          </form>
+          <form id="join-game-form" class="action-block">
+            <span class="step">02</span>
+            <div><h3>Unirse a una partida</h3><p>Introduce el código de tu mesa.</p></div>
+            <label for="game-code">Código de partida</label>
+            <input id="game-code" type="text" minlength="8" maxlength="8" placeholder="Ej. A1B2C3D4" required />
+            <button type="submit"><span>Unirse</span><span aria-hidden="true">↗</span></button>
+          </form>
+        </div>
+        <p id="lobby-message" class="form-message" role="status" aria-live="polite"></p>
+      </section>
+
+      <!-- La sala muestra el estado compartido antes de incorporar la lógica de dados. -->
+      <section class="panel workspace game-room" id="game-view" hidden aria-labelledby="game-title">
+        <div class="workspace-topline">
+          <div><p class="eyebrow" id="game-phase">Sala de espera</p><h2 id="game-title">Partida <span id="game-code-label"></span></h2></div>
+          <button class="text-button" id="back-to-lobby" type="button">Salir</button>
+        </div>
+        <div class="game-status"><span class="status-dot"></span><span id="game-status-label">Esperando jugadores</span><span class="game-turn" id="game-turn-label"></span></div>
+        <div class="players-heading"><h3>Jugadores</h3><span id="player-count"></span></div>
+        <div class="player-list" id="player-list"></div>
+        <button id="start-game" type="button" hidden>Iniciar partida <span aria-hidden="true">↗</span></button>
+        <p id="game-message" class="form-message" role="status" aria-live="polite"></p>
+        <div class="future-board" aria-label="Zona de juego pendiente"><span>Zona de juego</span><small>Aquí añadiremos las tiradas, dados y puntuación.</small></div>
       </section>
     </main>
     <script src="/app.js" defer></script>

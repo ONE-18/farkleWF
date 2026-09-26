@@ -18,3 +18,5 @@ docker compose up --build
 ```
 
 La base de datos SQLite se conserva en el volumen `farkle-data`. El endpoint `POST /api/players` recibe `{ "name": "Alex", "device_id": "..." }`; volver a registrarse desde el mismo navegador actualiza el nombre existente.
+
+Las partidas no tienen un número máximo fijo de jugadores. Se crean en estado de espera, aceptan jugadores mediante su código y el creador las inicia cuando haya al menos dos participantes.
