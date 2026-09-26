@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3000:8000"
+    volumes:
+      - farkle-data:/data
+    restart: unless-stopped
+
+volumes:
+  farkle-data:
